@@ -58,10 +58,32 @@ class App extends React.Component {
             this.state = {
                   completado: false,
                   preguntaActual: 0,
-                  respuestas: [],
+                  respuestas: ["0"],
                   correctas: 0,
                   revisar: false
             }
+      }
+
+      preguntaAnterior(){
+            if (this.state.preguntaActual == preguntas.length) {
+                  this.setState({
+                        completado: false
+                  });
+            }
+            this.setState({
+                  preguntaActual: this.state.preguntaActual - 1
+            })
+      }
+
+      siguientePregunta(){
+            if (this.state.preguntaActual == preguntas.length) {
+                  this.setState({
+                        completado: true
+                  });
+            }
+            this.setState({
+                  preguntaActual: this.state.preguntaActual + 1
+            })
       }
       render(){
             return(
@@ -74,12 +96,12 @@ class App extends React.Component {
                               </div>
                         </div>
                         <div className="row contenido">
-                              <div className="row estado">
+                              <div className="row estado" id="progreso">
                               {!this.state.revisar &&
                                     <div className="col-md-12 col-lg-12 col-xs-12 col-sm-12">
                                           <div>{this.state.respuestas.length} de {preguntas.length} preguntas contestadas</div>
                                           <div className="progress">
-                                                <div className="progress-bar" role="progressbar" aria-valuemax="100" style={{ width: this.state.respuestas.length * 20 + '%', height: '5px' }}>
+                                                <div className="progress-bar" role="progressbar" aria-valuemax="100" style={{ width: this.state.respuestas.length * 20 + '%', height: '10px' }}>
                                                 </div>
                                           </div>
                                     </div>
@@ -107,11 +129,11 @@ class App extends React.Component {
                         </div>
                         {!this.state.revisar && this.state.respuestas.length != 0 &&
                         <div id="flechas" className="text-center">
-                              <button id="anterior" className={this.state.respuestas.length>=this.state.preguntaActual&&this.state.preguntaActual?'btn':"btn disabled"}>
+                              <button id="anterior" className={this.state.respuestas.length>=this.state.preguntaActual&&this.state.preguntaActual?'btn':"btn disabled"} onClick={()=>{this.preguntaAnterior()}}>
                                     <img className="img-responsive" src="img/left.svg" />
                               </button>
-                              <button id="siguiente" className={this.state.respuestas.length>this.state.contar?'btn':"btn disabled"}>
-                              <img className="img-responsive" src="img/right.svg" />
+                              <button id="siguiente" className={this.state.respuestas.length>this.state.preguntaActual?'btn':"btn disabled"} onClick={()=>{this.siguientePregunta()}} >
+                                    <img className="img-responsive" src="img/right.svg" />
                               </button>
                         </div>
                         }
@@ -121,6 +143,4 @@ class App extends React.Component {
       }
 }
 
-
-
-ReactDOM.render( < App / > , document.getElementById("container"));
+ReactDOM.render( <App /> , document.getElementById("container"));

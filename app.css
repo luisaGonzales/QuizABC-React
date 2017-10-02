@@ -22,14 +22,6 @@
     color: #423f5c;
 }
 
-
-/* Clase */
-
-.no-display {
-    display: none;
-}
-
-
 /* Bienvenida */
 
 #inicio {
@@ -40,7 +32,6 @@
     font-weight: 700;
 }
 
-
 /* Icono de información */
 
 #informacion {
@@ -50,26 +41,16 @@
 }
 
 #informacion .fa-circle {
-    color: #fc2088;
+    color: #fc2088 !important;
 }
 
 #informacion .fa-info-circle {
-    color: white;
+    color: white !important;
 }
 
-
-#atras{
-    position: absolute;
-    left: 300%;
-    z-index: 7;
+#progreso .progress {
+    height: 6px;
 }
-
-#adelante{
-    position: absolute;
-    left: 340%;
-    z-index: 7;
-}
-
 /* Botón */
 
 .btn-default {
@@ -88,7 +69,6 @@
     color: #423f5c !important;
 }
 
-
 /* Pantalla en General */
 
 .quiz {
@@ -106,7 +86,6 @@
     width: 230px;
 }
 
-
 /* Contenido */
 
 .contenido {
@@ -123,7 +102,6 @@
 .progress{
     margin-bottom: 0 !important;
     margin-top: 5% !important;
-    height: 10px !important;
 }
 
 .progress-bar{

@@ -111,17 +111,17 @@ class App extends React.Component {
                         {this.state.respuestas.map((usuario, indexRespuestas) => {
                               if (usuario == preguntas[indexRespuestas].correcta && this.state.revisar) {
                                     console.log(this.state.revisar)
-                                    return <p className="text-success">{indexRespuestas + 1}. {preguntas[indexRespuestas].pregunta}<strong>{usuario}</strong></p>
+                                    return <p className="text-success">{indexRespuestas + 1}. {preguntas[indexRespuestas].pregunta}<strong> {usuario}</strong></p>
                               } else if (this.state.revisar) {
-                                    return <p className="text-danger">{indexRespuestas + 1}. {preguntas[indexRespuestas].pregunta}<strong><strike>{usuario}</strike> {preguntas[indexRespuestas].correcta}</strong></p>
+                                    return <p className="text-danger">{indexRespuestas + 1}. {preguntas[indexRespuestas].pregunta}<strong><strike> {usuario}</strike> {preguntas[indexRespuestas].correcta}</strong></p>
                               } else {
-                                    return <p>{indexRespuestas + 1}. {preguntas[indexRespuestas].pregunta}<strong>{usuario}</strong></p>;
+                                    return <p>{indexRespuestas + 1}. {preguntas[indexRespuestas].pregunta}<strong> {usuario}</strong></p>;
                               }
                         })
                         }
                         <div className='text-center'>
-                              {this.state.revisar && <button className='btn-lg btn-dark' onClick={() => this.reiniciar()}>Start Again</button>}
-                              {!this.state.revisar && <button className='btn-lg btn-dark' onClick={() => this.revisar()}>Enviar</button>}
+                              {this.state.revisar && <button className='btn btn-default btn-lg' onClick={() => this.reiniciar()}>Start Again</button>}
+                              {!this.state.revisar && <button className='btn btn-default btn-lg' onClick={() => this.revisar()}>Enviar</button>}
                         </div>
                   </div>
             );

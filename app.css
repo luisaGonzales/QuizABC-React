@@ -12,6 +12,7 @@
 
 * {
     font-family: 'Ubuntu', sans-serif;
+    box-sizing: border-box;
 }
 
 
@@ -22,6 +23,7 @@
     color: #423f5c;
 }
 
+
 /* Bienvenida */
 
 #inicio {
@@ -31,6 +33,7 @@
 #inicio h1 {
     font-weight: 700;
 }
+
 
 /* Icono de información */
 
@@ -51,18 +54,27 @@
 #progreso .progress {
     height: 6px;
 }
+
+
 /* Botón */
 
 .btn-default {
     color: white !important;
     background-color: #423f5c !important;
-    font-weight: bold;
+    font-weight: bold !important;
     text-align: center !important;
 }
 
 .btn-lg {
-    width: 50%;
+    width: 40%;
 }
+
+.btn-default:hover {
+    background-color: white !important;
+    color: #423f5c !important;
+    border: 2px solid #423f5c !important;
+}
+
 
 /* Pantalla en General */
 
@@ -71,15 +83,17 @@
     padding: 5vw 0;
 }
 
-#resumenCompleto{
+#resumenCompleto {
     text-align: left !important;
 }
+
 
 /* Imagen */
 
 .imagen {
     width: 230px;
 }
+
 
 /* Contenido */
 
@@ -94,14 +108,16 @@
     text-align: left;
 }
 
-.progress{
+.progress {
     margin-bottom: 0 !important;
     margin-top: 1% !important;
 }
 
-.progress-bar{
+.progress-bar {
     background-color: #423f5c !important;
 }
+
+
 /* Pregunta */
 
 .pregunta {
@@ -129,14 +145,15 @@
 }
 
 .btn-abc {
-    font-size: 20px;
     font-weight: 800;
     margin-bottom: 10px !important;
     transition: all .3s;
+    border: 2px solid #423f5c !important;
 }
 
 .btn-abc:hover {
-    background-color:  #ccc9d5; ;
+    background-color: #ccc9d5;
+    ;
     transition: all .8s;
 }
 
@@ -153,6 +170,7 @@
     font-size: 14px;
     border-radius: 5px;
 }
+
 
 /* Seleccionado */
 
@@ -174,11 +192,11 @@
 }
 
 .seleccionado button:after {
-   font-family: FontAwesome;
-   content: "\f08d";
-   position: absolute;
-   right: 30px;
-   top: 7px;
+    font-family: FontAwesome;
+    content: "\f08d";
+    position: absolute;
+    right: 30px;
+    top: 7px;
 }
 
 .btn-abc:hover .seleccion {
@@ -194,31 +212,42 @@
     right: -20px;
 }
 
-#respuestas, #resumen{
+#respuestas,
+#resumen {
     text-align: left !important;
     padding: 5vw;
 }
 
-.twitter{
+.twitter {
     color: #65a2d9 !important;
 }
 
-.facebook{
+.facebook {
     color: #3b5998 !important;
 }
 
-.google{
+.google {
     color: #de5449 !important;
 }
 
-#redesSociales{
+#redesSociales {
     margin-top: 30px;
     opacity: 0.5;
     color: white;
- }
- #redesSociales:hover{
+}
+
+#redesSociales:hover {
     opacity: 1;
- }
+}
+
+#anterior {
+    background-color: transparent !important;
+}
+
+#siguiente {
+    background-color: transparent !important;
+}
+
 @media screen and (max-width: 1200px) {
     .imagen {
         width: 100px;
@@ -238,4 +267,4 @@
     .contenido {
         margin: 20px 200px;
     }
-}   
+}

@@ -123,7 +123,7 @@
 
 .opciones {
     margin-top: 40px;
-    margin-bottom: 40px;
+    margin-bottom: 10px;
 }
 
 
@@ -136,7 +136,7 @@
 .btn-abc {
     font-size: 20px;
     font-weight: 800;
-    margin-bottom: 10px;
+    margin-bottom: 10px !important;
     transition: all .3s;
 }
 
@@ -146,14 +146,15 @@
 }
 
 .abc {
+    text-align: center;
     display: inline-block;
-    margin-right: 10px;
+    margin-right: 10px !important;
     padding: 3px 8px 4px;
-    width: 25px;
-    height: 25px;
+    width: 30px;
+    height: 30px;
     background-color: #423f5c;
     color: #fff;
-    font-weight: 100;
+    font-weight: 600;
     font-size: 14px;
     border-radius: 5px;
 }
@@ -168,12 +169,24 @@
 }
 
 .seleccion:after {
+    font-family: FontAwesome;
     position: absolute;
     opacity: 0;
-    top: -20px;
+    top: -10px;
     right: -115px;
     transition: 0.5s;
-    content: '\2713';
+    content: "\f058";
+}
+
+.seleccionado button{
+    border-width: 2px;
+  }
+.seleccionado button:after {
+   font-family: FontAwesome;
+   content: "\f08d";
+   color: #4b4668;
+   position: absolute;
+   right: 25px;
 }
 
 .btn-abc:hover .seleccion {
@@ -202,7 +215,7 @@
     color: #af5250;
 }
 
-@media screen and (max-width: 1100px) {
+@media screen and (max-width: 1200px) {
     .imagen {
         width: 100px;
     }
@@ -217,7 +230,7 @@
     }
 }
 
-@media screen and (max-width: 1200px) and (min-width:1100px) {
+@media screen and (max-width: 1200px) and (min-width:1200px) {
     .contenido {
         margin: 20px 200px;
     }

@@ -58,12 +58,49 @@ class App extends React.Component {
             this.state = {
                   completado: false,
                   preguntaActual: 0,
-                  respuestas: ["0"],
+                  respuestas: [],
                   correctas: 0,
                   revisar: false
             }
       }
-
+      mostrarOpciones(opciones) {
+            return Object.keys(opciones).map((alternativa, index) => {
+                  let opcion = opciones[alternativa];
+                  return (
+                        <div className="text-center">
+                              <div className={this.state.respuestas[this.state.preguntaActual] == opcion ? 'col-lg-4 col-md-4 col-sm-4 col-xs-12 seleccionado' : 'col-lg-4 col-md-4 col-sm-4 col-xs-12'}>
+                                    <button onClick={(e) => this.guardarRespuesta(e.currentTarget, opcion)} className='btn btn-block btn-abc text-center' key={index}><span className='abc pull-left'>{alternativa}</span>{opcion}<span className="seleccion"></span></button>
+                              </div>
+                        </div>
+                  );
+            })
+      }
+      mostrarPreguntas() {
+            return (
+            <div>
+                  <h1 className="text-center titulo"> {preguntas[this.state.preguntaActual].pregunta} </h1>
+                  <div className="opciones row">
+                        {this.mostrarOpciones(preguntas[this.state.preguntaActual].opciones)}
+                  </div>
+            </div>
+            );
+      }
+      guardarRespuesta(evento, respuesta) {
+            let res = this.state.respuestas;
+            res[this.state.preguntaActual] = respuesta;
+            this.setState({
+                  respuestas: res
+            })
+            if (respuesta == preguntas[this.state.preguntaActual].respuesta) {
+                  this.setState({
+                        correctas: this.state.correctas + 1
+                  })
+            }
+            let t = setTimeout(()=>{
+                  this.siguientePregunta();
+            }, 800);
+            
+      }
       preguntaAnterior(){
             if (this.state.preguntaActual == preguntas.length) {
                   this.setState({
@@ -84,6 +121,20 @@ class App extends React.Component {
             this.setState({
                   preguntaActual: this.state.preguntaActual + 1
             })
+      }
+      revisar() {
+            this.setState({
+                  revisar: true
+            });
+      }
+      reiniciar(){
+            this.state = {
+                  completado: false,
+                  preguntaActual: 0,
+                  respuestas: [],
+                  correctas: 0,
+                  revisar: false
+            }
       }
       render(){
             return(
@@ -108,7 +159,7 @@ class App extends React.Component {
                               }     
                               </div>
                               <div className="col-md-12 col-lg-12 pregunta">
-                                    
+                              {!this.state.completado && this.mostrarPreguntas()}
                               </div>
                               <div className="row">
                                     <div className="col-md-offset-3 col-md-6 ">

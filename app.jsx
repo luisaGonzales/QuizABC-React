@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 let preguntas = [{
             pregunta: `¿Cuál es la aerolínea más antigua del mundo?`,

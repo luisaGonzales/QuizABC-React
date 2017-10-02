@@ -69,7 +69,7 @@ class App extends React.Component {
                   return (
                         <div className="text-center">
                               <div className={this.state.respuestas[this.state.preguntaActual] == opcion ? 'col-lg-4 col-md-4 col-sm-4 col-xs-12 seleccionado' : 'col-lg-4 col-md-4 col-sm-4 col-xs-12'}>
-                                    <button onClick={(e) => this.responder(e.currentTarget, opcion)} className='btn btn-block btn-abc text-center' key={index}><span className='abc pull-left'>{alternativa}</span>{opcion}<span className="seleccion"></span></button>
+                                    <button onClick={(e) => this.responder(e, opcion)} className='btn btn-block btn-abc text-center' key={index}><span className='abc pull-left'>{alternativa}</span>{opcion}<span className="seleccion"></span></button>
                               </div>
                         </div>
                   );
@@ -85,7 +85,8 @@ class App extends React.Component {
             </div>
             );
       }
-      responder(evento, respuesta) {
+      responder(e, respuesta) {
+            e.preventDefault();
             let respuestaUsuario = this.state.respuestas;
             respuestaUsuario[this.state.preguntaActual] = respuesta;
             this.setState({
@@ -105,7 +106,7 @@ class App extends React.Component {
                   <div className="col-md-12 col-lg-12">
                         <h1 className="titulo">
                               {!this.state.revisar && 'Estas son tus respuestas!'}
-                              {this.state.revisar && this.state.correctas + ' de' + preguntas.length + ' correctas!!'}
+                              {this.state.revisar && this.state.correctas + ' de ' + preguntas.length + ' correctas!!'}
                         </h1>
                         {this.state.respuestas.map((usuario, indexRespuestas) => {
                               if (usuario == preguntas[indexRespuestas].correcta && this.state.revisar) {
@@ -137,7 +138,7 @@ class App extends React.Component {
       }
 
       siguientePregunta(){
-            if (this.state.preguntaActual == preguntas.length) {
+            if (this.state.preguntaActual === preguntas.length - 1) {
                   this.setState({
                         respondido: true
                   });
@@ -186,17 +187,17 @@ class App extends React.Component {
                                     {!this.state.respondido && this.mostrarPreguntas()}
                                     {this.state.respondido && this.mostrarRespuestas()}
                                     <div className="row">
-                                          <div className="col-md-offset-3 col-md-6 ">
-                                                <span className="fa-stack fa-2x">
-                                                      <i className="fa fa-circle fa-stack-2x fa-inverse fa-2x"></i>
+                                          <div className="col-md-offset-3 col-md-6 " id="redesSociales">
+                                                <span className="fa-stack fa-2x ">
+                                                      <i className="fa fa-circle fa-stack-2x fa-inverse fa-2x twitter"></i>
                                                       <i className="fa fa-twitter fa-stack-1x"></i>
                                                 </span>
-                                                <span className="fa-stack fa-2x">
-                                                      <i className="fa fa-circle fa-stack-2x fa-inverse fa-2x"></i>
+                                                <span className="fa-stack fa-2x ">
+                                                      <i className="fa fa-circle fa-stack-2x fa-inverse fa-2x facebook"></i>
                                                       <i className="fa fa-facebook fa-stack-1x"></i>
                                                 </span>
-                                                <span className="fa-stack fa-2x">
-                                                      <i className="fa fa-circle fa-stack-2x fa-inverse fa-2x"></i>
+                                                <span className="fa-stack fa-2x ">
+                                                      <i className="fa fa-circle fa-stack-2x fa-inverse fa-2x google"></i>
                                                       <i className="fa fa-google-plus fa-stack-1x"></i>
                                                 </span>
                                           </div>
@@ -205,7 +206,7 @@ class App extends React.Component {
                         </div>
                         {!this.state.revisar && this.state.respuestas.length != 0 &&
                         <div id="flechas" className="text-center">
-                              <button id="anterior" className={this.state.respuestas.length>=this.state.preguntaActual&&this.state.preguntaActual?'btn':"btn disabled"} onClick={()=>{this.preguntaAnterior()}}>
+                              <button id="anterior" className={this.state.respuestas.length >= this.state.preguntaActual && this.state.preguntaActual?'btn':"btn disabled"} onClick={()=>{this.preguntaAnterior()}}>
                                     <img className="img-responsive" src="img/left.svg" />
                               </button>
                               <button id="siguiente" className={this.state.respuestas.length>this.state.preguntaActual?'btn':"btn disabled"} onClick={()=>{this.siguientePregunta()}} >

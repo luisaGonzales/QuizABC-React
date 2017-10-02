@@ -64,11 +64,6 @@
     width: 50%;
 }
 
-#comenzar:hover {
-    background-color: #ccc9d5 !important;
-    color: #423f5c !important;
-}
-
 /* Pantalla en General */
 
 .quiz {
@@ -101,7 +96,7 @@
 
 .progress{
     margin-bottom: 0 !important;
-    margin-top: 5% !important;
+    margin-top: 1% !important;
 }
 
 .progress-bar{
@@ -204,14 +199,26 @@
     padding: 5vw;
 }
 
-.correcta {
-    color: #3c763d;
+.twitter{
+    color: #65a2d9 !important;
 }
 
-.incorrecta{
-    color: #af5250;
+.facebook{
+    color: #3b5998 !important;
 }
 
+.google{
+    color: #de5449 !important;
+}
+
+#redesSociales{
+    margin-top: 30px;
+    opacity: 0.5;
+    color: white;
+ }
+ #redesSociales:hover{
+    opacity: 1;
+ }
 @media screen and (max-width: 1200px) {
     .imagen {
         width: 100px;

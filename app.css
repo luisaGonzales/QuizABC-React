@@ -178,15 +178,12 @@
     content: "\f058";
 }
 
-.seleccionado button{
-    border-width: 2px;
-  }
 .seleccionado button:after {
    font-family: FontAwesome;
    content: "\f08d";
-   color: #4b4668;
    position: absolute;
-   right: 25px;
+   right: 30px;
+   top: 7px;
 }
 
 .btn-abc:hover .seleccion {

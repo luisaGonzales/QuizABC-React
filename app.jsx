@@ -56,7 +56,7 @@ class App extends React.Component {
       constructor(props) {
             super(props);
             this.state = {
-                  completado: false,
+                  respondido: false,
                   preguntaActual: 0,
                   respuestas: [],
                   correctas: 0,
@@ -69,7 +69,7 @@ class App extends React.Component {
                   return (
                         <div className="text-center">
                               <div className={this.state.respuestas[this.state.preguntaActual] == opcion ? 'col-lg-4 col-md-4 col-sm-4 col-xs-12 seleccionado' : 'col-lg-4 col-md-4 col-sm-4 col-xs-12'}>
-                                    <button onClick={(e) => this.guardarRespuesta(e.currentTarget, opcion)} className='btn btn-block btn-abc text-center' key={index}><span className='abc pull-left'>{alternativa}</span>{opcion}<span className="seleccion"></span></button>
+                                    <button onClick={(e) => this.responder(e.currentTarget, opcion)} className='btn btn-block btn-abc text-center' key={index}><span className='abc pull-left'>{alternativa}</span>{opcion}<span className="seleccion"></span></button>
                               </div>
                         </div>
                   );
@@ -85,13 +85,13 @@ class App extends React.Component {
             </div>
             );
       }
-      guardarRespuesta(evento, respuesta) {
-            let res = this.state.respuestas;
-            res[this.state.preguntaActual] = respuesta;
+      responder(evento, respuesta) {
+            let respuestaUsuario = this.state.respuestas;
+            respuestaUsuario[this.state.preguntaActual] = respuesta;
             this.setState({
-                  respuestas: res
+                  respuestas: respuestaUsuario
             })
-            if (respuesta == preguntas[this.state.preguntaActual].respuesta) {
+            if (respuesta == preguntas[this.state.preguntaActual].correcta) {
                   this.setState({
                         correctas: this.state.correctas + 1
                   })
@@ -99,12 +99,36 @@ class App extends React.Component {
             let t = setTimeout(()=>{
                   this.siguientePregunta();
             }, 800);
-            
+      }
+      mostrarRespuestas(){
+            return(
+                  <div className="col-md-12 col-lg-12">
+                        <h1 className="titulo">
+                              {!this.state.revisar && 'Estas son tus respuestas!'}
+                              {this.state.revisar && this.state.correctas + ' de' + preguntas.length + ' correctas!!'}
+                        </h1>
+                        {this.state.respuestas.map((usuario, indexRespuestas) => {
+                              if (usuario == preguntas[indexRespuestas].correcta && this.state.revisar) {
+                                    console.log(this.state.revisar)
+                                    return <p className="text-success">{indexRespuestas + 1}. {preguntas[indexRespuestas].pregunta}<strong>{usuario}</strong></p>
+                              } else if (this.state.revisar) {
+                                    return <p className="text-danger">{indexRespuestas + 1}. {preguntas[indexRespuestas].pregunta}<strong><strike>{usuario}</strike> {preguntas[indexRespuestas].correcta}</strong></p>
+                              } else {
+                                    return <p>{indexRespuestas + 1}. {preguntas[indexRespuestas].pregunta}<strong>{usuario}</strong></p>;
+                              }
+                        })
+                        }
+                        <div className='text-center'>
+                              {this.state.revisar && <button className='btn-lg btn-dark' onClick={() => this.reiniciar()}>Start Again</button>}
+                              {!this.state.revisar && <button className='btn-lg btn-dark' onClick={() => this.revisar()}>Enviar</button>}
+                        </div>
+                  </div>
+            );
       }
       preguntaAnterior(){
             if (this.state.preguntaActual == preguntas.length) {
                   this.setState({
-                        completado: false
+                        respondido: false
                   });
             }
             this.setState({
@@ -115,7 +139,7 @@ class App extends React.Component {
       siguientePregunta(){
             if (this.state.preguntaActual == preguntas.length) {
                   this.setState({
-                        completado: true
+                        respondido: true
                   });
             }
             this.setState({
@@ -128,13 +152,13 @@ class App extends React.Component {
             });
       }
       reiniciar(){
-            this.state = {
-                  completado: false,
+            this.setState({
+                  respondido: false,
                   preguntaActual: 0,
                   respuestas: [],
                   correctas: 0,
                   revisar: false
-            }
+            });
       }
       render(){
             return(
@@ -142,8 +166,8 @@ class App extends React.Component {
                   <section className="container quiz text-center">
                         <div className="row text-center">
                               <div className="col-md-offset-3 col-md-6 col-md-offset-3 ">
-                              {!this.state.completado && <img src={preguntas[this.state.preguntaActual].imagen} />}
-                              {this.state.completado && <img src="img/truck.svg"/>}
+                              {!this.state.respondido && <img src={preguntas[this.state.preguntaActual].imagen} />}
+                              {this.state.respondido && <img src="img/truck.svg"/>}
                               </div>
                         </div>
                         <div className="row contenido">
@@ -159,22 +183,23 @@ class App extends React.Component {
                               }     
                               </div>
                               <div className="col-md-12 col-lg-12 pregunta">
-                              {!this.state.completado && this.mostrarPreguntas()}
-                              </div>
-                              <div className="row">
-                                    <div className="col-md-offset-3 col-md-6 ">
-                                          <span className="fa-stack fa-2x">
-                                                <i className="fa fa-circle fa-stack-2x fa-inverse fa-2x"></i>
-                                                <i className="fa fa-twitter fa-stack-1x"></i>
-                                          </span>
-                                          <span className="fa-stack fa-2x">
-                                                <i className="fa fa-circle fa-stack-2x fa-inverse fa-2x"></i>
-                                                <i className="fa fa-facebook fa-stack-1x"></i>
-                                          </span>
-                                          <span className="fa-stack fa-2x">
-                                                <i className="fa fa-circle fa-stack-2x fa-inverse fa-2x"></i>
-                                                <i className="fa fa-google-plus fa-stack-1x"></i>
-                                          </span>
+                                    {!this.state.respondido && this.mostrarPreguntas()}
+                                    {this.state.respondido && this.mostrarRespuestas()}
+                                    <div className="row">
+                                          <div className="col-md-offset-3 col-md-6 ">
+                                                <span className="fa-stack fa-2x">
+                                                      <i className="fa fa-circle fa-stack-2x fa-inverse fa-2x"></i>
+                                                      <i className="fa fa-twitter fa-stack-1x"></i>
+                                                </span>
+                                                <span className="fa-stack fa-2x">
+                                                      <i className="fa fa-circle fa-stack-2x fa-inverse fa-2x"></i>
+                                                      <i className="fa fa-facebook fa-stack-1x"></i>
+                                                </span>
+                                                <span className="fa-stack fa-2x">
+                                                      <i className="fa fa-circle fa-stack-2x fa-inverse fa-2x"></i>
+                                                      <i className="fa fa-google-plus fa-stack-1x"></i>
+                                                </span>
+                                          </div>
                                     </div>
                               </div>
                         </div>

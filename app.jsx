@@ -69,25 +69,24 @@ class App extends React.Component {
                   <section className="container quiz text-center">
                         <div className="row text-center">
                               <div className="col-md-offset-3 col-md-6 col-md-offset-3 ">
-                              
+                              {!this.state.completado && <img src={preguntas[this.state.preguntaActual].imagen} />}
+                              {this.state.completado && <img src="img/truck.svg"/>}
                               </div>
                         </div>
                         <div className="row contenido">
                               <div className="row estado">
-                              <div className="col-md-12 col-lg-12 col-xs-12 col-sm-12">
-                                    <div>0 de 5 preguntas contestadas</div>
-                                    <div className="progress">
-                                          <div className="progress-bar" role="progressbar" aria-valuemax="100" style={{ width: this.state.respuestas.length * 20 + '%', height: '5px' }}>
+                              {!this.state.revisar &&
+                                    <div className="col-md-12 col-lg-12 col-xs-12 col-sm-12">
+                                          <div>{this.state.respuestas.length} de {preguntas.length} preguntas contestadas</div>
+                                          <div className="progress">
+                                                <div className="progress-bar" role="progressbar" aria-valuemax="100" style={{ width: this.state.respuestas.length * 20 + '%', height: '5px' }}>
+                                                </div>
                                           </div>
                                     </div>
-                              </div>
+                              }     
                               </div>
                               <div className="col-md-12 col-lg-12 pregunta">
-                              <h1 className="titulo">¿Cuál es la aerolínea más antigua del mundo?</h1>
-                              <div className="row opciones" id="1">
-                                    <div className="col-lg-2 col-md-4 col-sm-4 col-xs-12"><button id="10" className='btn btn-block btn-abc' onclick="app.siguientePregunta()"><span className="abc">A</span>Avianca<span className="seleccion"></span></button></div>
-                                    <div className="col-lg-2 col-md-4 col-sm-4 col-xs-12"><button id="11" className='btn btn-block btn-abc' onclick="app.siguientePregunta()"><span className="abc">B</span>KLM<span className="seleccion"></span></button></div>
-                                    <div className="col-lg-2 col-md-4 col-sm-4 col-xs-12"><button id="12" className='btn btn-block btn-abc' onclick="app.siguientePregunta()"><span className="abc">C</span>Qantas<span className="seleccion"></span></button></div>
+                                    
                               </div>
                               <div className="row">
                                     <div className="col-md-offset-3 col-md-6 ">
@@ -105,8 +104,17 @@ class App extends React.Component {
                                           </span>
                                     </div>
                               </div>
-                              </div>
                         </div>
+                        {!this.state.revisar && this.state.respuestas.length != 0 &&
+                        <div id="flechas" className="text-center">
+                              <button id="anterior" className={this.state.respuestas.length>=this.state.preguntaActual&&this.state.preguntaActual?'btn':"btn disabled"}>
+                                    <img className="img-responsive" src="img/left.svg" />
+                              </button>
+                              <button id="siguiente" className={this.state.respuestas.length>this.state.contar?'btn':"btn disabled"}>
+                              <img className="img-responsive" src="img/right.svg" />
+                              </button>
+                        </div>
+                        }
                   </section>
             </div>
             );
